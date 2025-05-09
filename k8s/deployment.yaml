@@ -1,0 +1,23 @@
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-deployment
+  labels:
+    app: hello-world
+spec:
+  replicas: 2 # You can adjust the replica count as needed
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hello-world-container
+          image: hello-world-nginx:latest
+          imagePullPolicy: IfNotPresent # Add this line very imp to prioritize local imgs first or uses a remote img with same name
+          ports:
+            - containerPort: 80
